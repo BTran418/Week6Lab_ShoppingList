@@ -69,23 +69,23 @@ public class ShoppingListServlet extends HttpServlet {
 	    request.setAttribute("message", session.getAttribute("username"));
 	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
 	} 
-        else {
+        else if (request.getParameter("action").equals("register")){
 	    request.setAttribute("message", "A username must be entered.");
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 	}
 	
 	if (request.getParameter("action").equals("add")) {
 	    String item = request.getParameter("item");
-	    items.add(item);
+            items.add(item);
 	    session.setAttribute("items", items);
-	    getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
 	}
 	
 	if (request.getParameter("action").equals("delete")) {
 	    String item = request.getParameter("item");
 	    items.remove(item);
 	    session.setAttribute("items", items);
-	    getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
 	}
     }
 

@@ -15,13 +15,14 @@
         <h1>Shopping List</h1>
         <p>Hello ${username}</p>
         <a href="ShoppingList?action=logout">Logout</a>
+        
         <form method="post" action="ShoppingList">
-            <br>
         <table>
-            <tr><td>Add Item: </td><td><input type="text" name="item" value="${item}">
-            <input type="submit" value="Add"><input type="hidden" name="action" value="add"></td></tr>
+            <tr><td>Add Item: </td><td><input type="text" name="item" value="${item}"></td>
+            <td><input type="submit" value="Add"><input type="hidden" name="action" value="add"></td></tr>
         </table>
         </form>
+        
         <form method="post" action="ShoppingList"> 
             <ul>
                 <c:forEach var="items" items="${items}">

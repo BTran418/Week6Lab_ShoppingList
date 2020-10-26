@@ -35,8 +35,6 @@ public class ShoppingListServlet extends HttpServlet {
         HttpSession session = request.getSession();
 	
 	if (request.getAttribute("username") != null) {
-            ArrayList<String> items = new ArrayList<>();
-            session.setAttribute("items", items);
 	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);      
 	} 
         else 
@@ -61,12 +59,12 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-	ArrayList<String> items = (ArrayList) session.getAttribute("items");
 	
         if (request.getParameter("action").equals("register") && (!request.getParameter("username").equals("") || request.getParameter("username") != null)) {
 	    String username = request.getParameter("username");
+            ArrayList<String> items = new ArrayList<>();
+            session.setAttribute("items", items);
 	    session.setAttribute("username", username);
-	    request.setAttribute("message", session.getAttribute("username"));
 	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
 	} 
         else if (request.getParameter("action").equals("register")){
@@ -75,15 +73,18 @@ public class ShoppingListServlet extends HttpServlet {
 	}
 	
 	if (request.getParameter("action").equals("add")) {
-            
 	    String item = request.getParameter("item");
+            ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
             items.add(item);
 	    session.setAttribute("items", items);
+            request.setAttribute("message", "Successfully added!");
 	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
 	}
 	
 	if (request.getParameter("action").equals("delete")) {
-	    String item = request.getParameter("item");
+	    String item = request.getParameter("items");
+            ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
+            request.setAttribute("message", "Successfully deleted!");
 	    items.remove(item);
 	    session.setAttribute("items", items);
 	    getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);

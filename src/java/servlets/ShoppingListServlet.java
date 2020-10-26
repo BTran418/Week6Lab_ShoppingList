@@ -75,6 +75,7 @@ public class ShoppingListServlet extends HttpServlet {
 	}
 	
 	if (request.getParameter("action").equals("add")) {
+            
 	    String item = request.getParameter("item");
             items.add(item);
 	    session.setAttribute("items", items);
